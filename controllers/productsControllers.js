@@ -42,7 +42,7 @@ module.exports = {
           $search: {
             index: 'shoes',
             text: {
-              query: req.params.id,
+              query: req.params.key,
               path: {
                 wildcard: '*',
               },
