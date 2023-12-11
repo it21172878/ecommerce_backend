@@ -18,12 +18,12 @@ module.exports = {
       await newUser.save();
       res.status(201).json({ message: 'User successfully created' });
     } catch (error) {
-      res.ststus(500).json({ message: error });
+      res.status(500).json({ message: error });
     }
   },
   loginUser: async (req, res) => {
     try {
-      const user = await User.find({ email: req.body.email });
+      const user = await User.findOne({ email: req.body.email });
       !user && res.status(401).json('could not find the user');
 
       const decryptedPass = CryptoJS.AES.decrypt(
@@ -42,7 +42,7 @@ module.exports = {
         process.env.JWT_SECRET,
         { expiresIn: '21d' }
       );
-      const { password, __v, createdAt, ...others } = user._doc;
+      const { password, __v, updatedAt, createdAt, ...others } = user._doc;
 
       res.status(200).json({ ...others, token: userToken });
     } catch (error) {}
