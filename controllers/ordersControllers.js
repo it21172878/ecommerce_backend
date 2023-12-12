@@ -10,6 +10,9 @@ module.exports = {
           select: '-sizes -oldPrice -description -category',
         })
         .exec();
+
+      res.status(200).json({ userOrders });
     } catch (error) {}
+    res.status(500).json({ message: 'Failed to get orders' });
   },
 };
